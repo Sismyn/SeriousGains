@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Serious Gains</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_user">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">Incorrect username</string>
+    <string name="error_invalid_password">This password is too short.</string>
+    <string name="error_incorrect_password">Incorrect password</string>
+    <string name="error_field_required">This field is required.</string>
+    <string name="permission_contacts">Contacts permissions are needed for providing email
+        completions.</string>
+    <string name="successful_login">Success!</string>
+    <string name="username">jdoe</string>
+    <string name="password">welcome1</string>
+
+    <string name="menu_navigation">Navigation</string>
+
+    <string name="client_list_heading">Client List</string>
+
+    <string name="menu_settings">Settings</string>
+
+    <string name="new_client">New Client</string>
+
+    <string name="search">Search</string>
+
+    <string name="prompt_name">First Name</string>
+    <string name="prompt_surname">Last Name</string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_credit_card">Credit Card Number</string>
+    <string name="prompt_cvc">CVC</string>
+    <string name="prompt_cc_expiration">Expiration</string>
+
+
+    <string name="pronouns_fem">She/Her</string>
+    <string name="pronouns_masc">He/Him</string>
+    <string name="pronouns_nbt">They/Them</string>
+    <string name="pronouns_nbx">Xe/Xer</string>
+
+</resources>
