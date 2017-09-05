@@ -38,5 +38,11 @@
     <string name="pronouns_masc">He/Him</string>
     <string name="pronouns_nbt">They/Them</string>
     <string name="pronouns_nbx">Xe/Xer</string>
+    <string name="title_activity_navigation">Navigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.getjacked.android.seriousgains;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -35,7 +36,8 @@ import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via email/password.May remake because this seems overly complicated and also I don't like
+ * using code I don't understand :(
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
@@ -199,7 +201,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         //currently only 1 password
         return password != "welcome1";
     }
-    // the correct login causes the app to close itself
+
+    private void logInWasCorrect(String email, String password){
+        if (isEmailValid(email) || isPasswordValid(password)){
+            Intent i = new Intent(LoginActivity.this, ClientListActivity.class);
+            startActivity(i);
+        }
+    }
+
+    // the correct login causes the app to close itself. dont know how to fix it and im confused
+    // about how to get it to go to another activity :(
 
     /**
      * Shows the progress UI and hides the login form.
