@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -42,7 +43,10 @@ public class ClientListFragment extends Fragment {
                 startActivity(intentClient);
                 return true;
             case R.id.menu_item_log_out:
-                Intent intentOut = new Intent(getActivity(), LoginActivity.class);
+                Context context = getContext();
+                Toast toastOut = Toast.makeText(context, R.string.log_out_toast, Toast.LENGTH_SHORT);
+                toastOut.show();
+                Intent intentOut = new Intent(context, LoginActivity.class);
                 startActivity(intentOut);
                 return true;
             default:

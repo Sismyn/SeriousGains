@@ -26,6 +26,7 @@
     <string name="new_client">New Client</string>
 
     <string name="log_out">Log Out</string>
+    <string name="log_out_toast">Logging out...</string>
 
     <string name="search">Search</string>
 
