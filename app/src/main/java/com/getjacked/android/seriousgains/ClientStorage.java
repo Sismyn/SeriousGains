@@ -48,4 +48,9 @@ public class ClientStorage {
         }
         return null;
     }
+
+    public void addClient(Client c){
+        mClientList.add(c);
+    }
+
 }

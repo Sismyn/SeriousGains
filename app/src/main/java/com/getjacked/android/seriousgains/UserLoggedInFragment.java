@@ -16,7 +16,8 @@ public class UserLoggedInFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         mUserLoggedInView = (TextView) view.findViewById(R.id.logged_in_view);
-        return view;
+
+        return mUserLoggedInView;
     }
 
 

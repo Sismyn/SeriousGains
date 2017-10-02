@@ -1,15 +1,16 @@
 package com.getjacked.android.seriousgains;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class ClientListFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        setHasOptionsMenu(true);
 
         mClientRecyclerView = (RecyclerView) view.findViewById(R.id.client_recycler_view);
         mClientRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -29,6 +31,25 @@ public class ClientListFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_new_client:
+                Client client = new Client();
+                ClientStorage.get(getActivity()).addClient(client);
+                Intent intentClient = ClientActivity.newIntent(getActivity(), client.getId());
+                startActivity(intentClient);
+                return true;
+            case R.id.menu_item_log_out:
+                Intent intentOut = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intentOut);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public void onResume() {
@@ -80,30 +101,30 @@ public class ClientListFragment extends Fragment {
         }
     }
 
-        private class ClientAdapter extends RecyclerView.Adapter<ClientHolder> {
-            private List<Client> mClientList;
+    private class ClientAdapter extends RecyclerView.Adapter<ClientHolder> {
+        private List<Client> mClientList;
 
-            public ClientAdapter(List<Client> clients) {
-                mClientList = clients;
-            }
-
-            @Override
-            public ClientHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-                View view = layoutInflater
-                        .inflate(R.layout.list_item_client, parent, false);
-                return new ClientHolder(view);
-            }
-
-            @Override
-            public void onBindViewHolder(ClientHolder holder, int position) {
-                Client client = mClientList.get(position);
-                holder.bindClient(client);
-            }
-
-            @Override
-            public int getItemCount() {
-                return mClientList.size();
-            }
+        public ClientAdapter(List<Client> clients) {
+            mClientList = clients;
         }
+
+        @Override
+        public ClientHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View view = layoutInflater
+                    .inflate(R.layout.list_item_client, parent, false);
+            return new ClientHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(ClientHolder holder, int position) {
+            Client client = mClientList.get(position);
+            holder.bindClient(client);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mClientList.size();
+        }
+    }
 }
