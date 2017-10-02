@@ -23,8 +23,11 @@ public class Client {
     private int mCVC;
 
     public Client(){
-        // generate unique identifier
-        mId = UUID.randomUUID();
+        this(UUID.randomUUID());
+    }
+
+    public Client (UUID id){
+
     }
 
 

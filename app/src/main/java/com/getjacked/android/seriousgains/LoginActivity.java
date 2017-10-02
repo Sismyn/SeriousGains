@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             if (bSuccess){
                 Toast toastSuccess = Toast.makeText(context, R.string.successful_login, Toast.LENGTH_SHORT);
                 toastSuccess.show();
-                Intent i = new Intent(LoginActivity.this, ClientListActivity.class);
+                Intent i = new Intent(LoginActivity.this, ClientActivity.class);
                 startActivity(i);
             }
             else {

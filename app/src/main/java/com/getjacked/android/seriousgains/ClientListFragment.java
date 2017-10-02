@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,13 @@ public class ClientListFragment extends Fragment {
         updateUI();
 
         return view;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.fragment_client_list, menu);
+        return true;
+
     }
 
     @Override
@@ -69,6 +78,7 @@ public class ClientListFragment extends Fragment {
             mAdapter = new ClientAdapter(clients);
             mClientRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.setClientList(clients);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -129,6 +139,10 @@ public class ClientListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mClientList.size();
+        }
+
+        public void setClientList(List<Client> clientList) {
+            mClientList = clientList;
         }
     }
 }

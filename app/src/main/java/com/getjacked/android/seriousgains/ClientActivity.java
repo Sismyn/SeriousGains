@@ -16,7 +16,6 @@ public class ClientActivity extends SingleFragmentActivity {
         return intent;
     }
 
-
     @Override
     protected Fragment createFragment(){
         UUID clientId = (UUID) getIntent().getSerializableExtra(EXTRA_CLIENT_ID);

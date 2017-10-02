@@ -31,4 +31,11 @@ public class ClientFragment extends Fragment {
 
         mClient = ClientStorage.get(getActivity()).getClient(clientId);
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        ClientStorage.get(getActivity()).updateClient(mClient);
+    }
+
 }
