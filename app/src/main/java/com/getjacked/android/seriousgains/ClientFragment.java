@@ -1,6 +1,13 @@
 package com.getjacked.android.seriousgains;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,10 +19,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import java.io.File;
 import java.util.UUID;
 
 public class ClientFragment extends Fragment {
     private static final String ARG_CLIENT_ID = "client_id";
+
+    private static final int CAM_REQUEST = 1313;
 
     private Client mClient;
     private EditText mFirstName;
@@ -32,6 +42,8 @@ public class ClientFragment extends Fragment {
     private EditText mCreditCardNum;
     private Spinner mCreditCardType;
     private EditText mCVC;
+
+    private File mPhoto;
 
     public static ClientFragment newInstance(UUID clientId){
         Bundle args = new Bundle();
@@ -50,6 +62,7 @@ public class ClientFragment extends Fragment {
         UUID clientId = (UUID) getArguments().getSerializable(ARG_CLIENT_ID);
 
         mClient = ClientStorage.get(getActivity()).getClient(clientId);
+        mPhoto = ClientStorage.get(getActivity()).getPhotoFile(mClient);
     }
 
     @Override
@@ -96,13 +109,31 @@ public class ClientFragment extends Fragment {
             }
         });
 
+        final PackageManager packageManager = getActivity().getPackageManager();
+
         mPicture = (ImageButton)v.findViewById(R.id.client_picture);
         mPicture.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                // idk, send to camera somehow
+                final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                boolean canTakePhoto = mPhoto != null && intent.resolveActivity(packageManager) != null;
+                mPicture.setEnabled(canTakePhoto);
+
+                if (canTakePhoto) {
+                    Uri uri = Uri.fromFile(mPhoto);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                }
+                mPicture.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        startActivityForResult(intent, CAM_REQUEST);
+                    }
+                });
+
             }
         });
+
 
         mWeight = (EditText)v.findViewById(R.id.weight_tb);
         mWeight.addTextChangedListener(new TextWatcher() {
@@ -247,8 +278,33 @@ public class ClientFragment extends Fragment {
             }
         });
 
-
         return v;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CAM_REQUEST) {
+            Bitmap pictor = (Bitmap) data.getExtras().get("data");
+            mPicture.setImageBitmap(pictor);
+        }
+
+        String FILE_NAME = "camera_photos.png";
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File file = new File(path, FILE_NAME);
+
+    }
+
+    private void updatePhotoView(){
+        if (mPhoto == null || !mPhoto.exists()) {
+            mPicture.setImageDrawable(null);
+        }
+        else {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhoto.getPath(), getActivity());
+            mPicture.setImageBitmap(bitmap);
+        }
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.getjacked.android.seriousgains;
 
+import android.graphics.Bitmap;
+import android.media.Image;
+
 import java.util.UUID;
 
 /**
@@ -12,6 +15,7 @@ public class Client {
     private String mFirstName;
     private String mLastName;
     private String mPronouns;
+    private String mPicture;
     private int mWeight;
     private String mHeight;
     private String mStreetAddress;
@@ -26,7 +30,7 @@ public class Client {
         this(UUID.randomUUID());
     }
 
-    public Client (UUID id){
+    public Client (UUID mId){
 
     }
 
@@ -49,6 +53,14 @@ public class Client {
 
     public void setLastName(String lastName) {
         mLastName = lastName;
+    }
+
+    public String getPicture() {
+        return "IMG_" + getId().toString() + ".jpg";
+    }
+
+    public void setPicture(String picture) {
+        mPicture = picture;
     }
 
     public String getPronouns() {

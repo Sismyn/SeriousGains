@@ -4,11 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
 import com.getjacked.android.seriousgains.database.ClientCursorWrapper;
 import com.getjacked.android.seriousgains.database.ClientDBHelper;
 import com.getjacked.android.seriousgains.database.ClientDBSchema;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -70,6 +72,15 @@ public class ClientStorage {
         finally {
             cursor.close();
         }
+    }
+
+    public File getPhotoFile (Client client){
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        if (externalFilesDir == null){
+            return null;
+        }
+        return new File (externalFilesDir, client.getPicture());
     }
 
     public void updateClient (Client client){
