@@ -12,7 +12,7 @@
     <string name="error_field_required">This field is required.</string>
     <string name="permission_contacts">Contacts permissions are needed for providing email
         completions.</string>
-    <string name="attempt_toast">Attempting Login...</string>
+    <string name="attempt_toast">Attempting Login&#8230;</string>
     <string name="successful_login">Success!</string>
     <string name="username">jdoe</string>
     <string name="password">welcome1</string>
@@ -26,22 +26,42 @@
     <string name="new_client">New Client</string>
 
     <string name="log_out">Log Out</string>
-    <string name="log_out_toast">Logging out...</string>
+    <string name="log_out_toast">Logging out&#8230;</string>
 
     <string name="search">Search</string>
 
     <string name="prompt_name">First Name</string>
     <string name="prompt_surname">Last Name</string>
+    <string name="prompt_pronouns">Pronouns</string>
     <string name="prompt_address">Address</string>
-    <string name="prompt_credit_card">Credit Card Number</string>
+    <string name="prompt_credit_card_num">Credit Card Number</string>
+    <string name="prompt_credit_card_type">Type</string>
     <string name="prompt_cvc">CVC</string>
     <string name="prompt_cc_expiration">Expiration</string>
+    <string name="prompt_height">Height</string>
+    <string name="prompt_weight">Weight</string>
+    <string name="prompt_city">City</string>
+    <string name="prompt_state">State</string>
+    <string name="prompt_zipcode">Zip Code</string>
+    <string name="prompt_goals">Fitness Goals \n</string>
 
 
-    <string name="pronouns_fem">She/Her</string>
-    <string name="pronouns_masc">He/Him</string>
-    <string name="pronouns_nbt">They/Them</string>
-    <string name="pronouns_nbx">Xe/Xer</string>
+
+    <string-array name="pronouns">
+    <item>She/Her</item>
+    <item>He/Him</item>
+    <item>They/Them</item>
+    <item>Xe/Xer</item>
+</string-array>
+
+<string-array name="cardtypes">
+    <item>American Express</item>
+    <item>Discover</item>
+    <item>Master Card</item>
+    <item>Visa</item>
+</string-array>
+
+
     <string name="title_activity_navigation">Navigation</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

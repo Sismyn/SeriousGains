@@ -24,22 +24,17 @@ public class ClientListFragment extends Fragment {
     private RecyclerView mClientRecyclerView;
     private ClientAdapter mAdapter;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        mClientRecyclerView = (RecyclerView) view.findViewById(R.id.client_recycler_view);
-        mClientRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        updateUI();
-
-        return view;
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_client_list, menu);
-        return true;
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_client_list, menu);
     }
 
     @Override
@@ -48,7 +43,7 @@ public class ClientListFragment extends Fragment {
             case R.id.menu_item_new_client:
                 Client client = new Client();
                 ClientStorage.get(getActivity()).addClient(client);
-                Intent intentClient = ClientActivity.newIntent(getActivity(), client.getId());
+                Intent intentClient = ClientPagerActivity.newIntent(getActivity(), client.getId());
                 startActivity(intentClient);
                 return true;
             case R.id.menu_item_log_out:
@@ -63,6 +58,15 @@ public class ClientListFragment extends Fragment {
         }
     }
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_client_list, container, false);
+
+        mClientRecyclerView = (RecyclerView) view.findViewById(R.id.client_recycler_view);
+        mClientRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        updateUI();
+
+        return view;
+    }
 
     @Override
     public void onResume() {
@@ -93,23 +97,21 @@ public class ClientListFragment extends Fragment {
             super(itemView);
             itemView.setOnClickListener(this);
 
-//                mNameTextView =(TextView)itemView.findViewById(R.id.list_item_client_name_text_view);
-            //              mDateTextView = (TextView)itemView.findViewById(R.id.list_item_crime_date_text_view);
-            //            mSolvedCheckBox = (CheckBox)itemView.findViewById(R.id.list_item_crime_solved_check_box);
-
+            mNameTextView = (TextView)itemView.findViewById(R.id.list_item_client_name_text_view);
+            mThumbnail = (ImageView)itemView.findViewById(R.id.list_item_client_thumbnail);
         }
 
         public void bindClient(Client client) {
             mClient = client;
-               /* mTitleTextView.setText(mCrime.getTitle());
-                mDateTextView.setText(mCrime.getDate().toString());
-                mSolvedCheckBox.setChecked(mCrime.isSolved());*/
+            mNameTextView.setText(mClient.getFirstName() + " " + mClient.getLastName());
+            // Not sure how to get the thumbnail from the picture inside. would probably have to add a
+            // picture constructor to Client. don't have time
         }
 
         @Override
         public void onClick(View v) {
 
-            Intent intent = ClientActivity.newIntent(getActivity(), mClient.getId());
+            Intent intent = ClientPagerActivity.newIntent(getActivity(), mClient.getId());
             startActivity(intent);
 
         }
